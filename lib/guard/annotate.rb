@@ -35,7 +35,7 @@ module Guard
     end
 
     def run_all
-      true
+      run_annotate
     end
 
     def run_on_changes(paths=[])
