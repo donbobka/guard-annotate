@@ -69,8 +69,15 @@ module Guard
       excludes.empty? ? '' : "--exclude #{excludes.join(',')}"
     end
 
+    def annotate_sort_columns_option
+      case options[:sort]
+      when true then '--sort'
+      else "--#{options[:sort]}-sort"
+      end
+    end
+
     def annotate_sort_columns?
-      options[:sort]
+      options[:sort] != false
     end
 
     def show_indexes?
@@ -103,7 +110,7 @@ module Guard
       annotate_models_options, annotate_options = '', ''
 
       annotate_models_command = "bundle exec annotate #{annotate_excludes} -p #{annotation_position}"
-      annotate_models_options += ' --sort' if annotate_sort_columns?
+      annotate_models_options += " #{annotate_sort_columns_option}" if annotate_sort_columns?
       annotate_models_options += ' --show-indexes' if show_indexes?
       annotate_models_options += ' --simple-indexes' if simple_indexes?
       annotate_models_options += ' --show-migration' if show_migration?

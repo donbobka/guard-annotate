@@ -115,6 +115,12 @@ RSpec.describe Guard::Annotate do
         expect(subject).to receive(:system).with("bundle exec annotate --exclude tests,fixtures -p before --sort")
         subject.start
       end
+
+      it "should allow user to classified sort columns by name if desired" do
+        subject = Guard::Annotate.new(:sort => :classified)
+        expect(subject).to receive(:system).with("bundle exec annotate --exclude tests,fixtures -p before --classified-sort")
+        subject.start
+      end
     end
 
     describe "indexes" do
